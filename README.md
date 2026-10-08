@@ -36,6 +36,26 @@ cc -std=c99 -Wall -Wextra -Werror -pedantic -Iinclude \
 ./vehicle_assist_tests
 ```
 
+## Simulation integration and testing
+
+The user reports testing this project with VECU.ui. This records the reported
+tool choice only; it does not imply a project-specific VECU.ui integration,
+capability, or test result.
+
+For a generic simulation integration, sample simulated vehicle and environment
+values and map them to the corresponding fields in `VehicleAssistInputs`.
+Initialize a persistent `VehicleAssistController` once with
+`vehicle_assist_init`, then call `vehicle_assist_update` periodically with the
+latest inputs. When an update succeeds, map `VehicleAssistOutputs` back to the
+appropriate simulated signals; if it returns `false`, the output object is
+left unchanged.
+
+Check cruise setpoint and speed-following behavior, brake-pedal cancellation
+and accelerator override, emergency braking when a positive lead distance is
+shorter than the calculated stopping distance, and rain-level/wiper behavior
+including hysteresis. The behavior and units below describe the API's existing
+rules.
+
 ## Behavior and units
 
 - Speed inputs and target speed use km/h.
