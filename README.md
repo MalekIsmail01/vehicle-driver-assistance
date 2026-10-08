@@ -67,8 +67,9 @@ rules.
   deceleration of 10 m/s² and is asserted when a positive lead distance is
   shorter than that stopping distance.
 - Brake input or emergency braking disables cruise control. Braking takes
-  priority over accelerator input. While cruise is enabled, the controller
-  requests acceleration below the setpoint and braking above it.
+  priority over accelerator input. While held, the accelerator requests
+  acceleration instead of cruise speed correction; cruise remains enabled and
+  resumes speed correction when the accelerator is released.
 - Rain-level transitions use hysteresis to reduce wiper-level chatter.
 
 Call `vehicle_assist_init` once, then call `vehicle_assist_update` periodically.
