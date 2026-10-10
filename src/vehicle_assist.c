@@ -112,6 +112,7 @@ bool vehicle_assist_update(
         inputs->brake_pressed
         || next_outputs.emergency_brake
         || (next_outputs.cruise_enabled
+            && !inputs->accelerator_pressed
             && inputs->current_speed_kph > controller->target_speed_kph);
     next_outputs.accelerate =
         !next_outputs.brake

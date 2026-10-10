@@ -66,6 +66,18 @@ static void test_cruise_control_and_brake_priority(void)
     assert(!outputs.accelerate);
 
     inputs.accelerator_pressed = true;
+    outputs = update(&controller, &inputs);
+    assert(outputs.cruise_enabled);
+    assert(!outputs.brake);
+    assert(outputs.accelerate);
+
+    inputs.accelerator_pressed = false;
+    outputs = update(&controller, &inputs);
+    assert(outputs.cruise_enabled);
+    assert(outputs.brake);
+    assert(!outputs.accelerate);
+
+    inputs.accelerator_pressed = true;
     inputs.brake_pressed = true;
     outputs = update(&controller, &inputs);
     assert(!outputs.cruise_enabled);
@@ -104,13 +116,19 @@ static void test_emergency_braking_distance(void)
     inputs.current_speed_kph = 36.0f;
     inputs.lead_distance_m = 4.0f;
     inputs.cruise_enabled = true;
+    inputs.accelerator_pressed = true;
     outputs = update(&controller, &inputs);
     assert(nearly_equal(outputs.stopping_distance_m, 5.0f));
     assert(outputs.emergency_brake);
     assert(outputs.brake);
     assert(!outputs.cruise_enabled);
+    assert(!outputs.accelerate);
 
     inputs.lead_distance_m = 5.0f;
+    outputs = update(&controller, &inputs);
+    assert(!outputs.emergency_brake);
+
+    inputs.lead_distance_m = 0.0f;
     outputs = update(&controller, &inputs);
     assert(!outputs.emergency_brake);
 }
@@ -139,6 +157,14 @@ static void test_rain_hysteresis(void)
     outputs = update(&controller, &inputs);
     assert(outputs.rain_level == VEHICLE_RAIN_HEAVY);
     assert(outputs.wiper_level == 2U);
+
+    inputs.rain_wetness_percent = 65.0f;
+    outputs = update(&controller, &inputs);
+    assert(outputs.rain_level == VEHICLE_RAIN_HEAVY);
+
+    inputs.rain_wetness_percent = 60.0f;
+    outputs = update(&controller, &inputs);
+    assert(outputs.rain_level == VEHICLE_RAIN_LIGHT);
 }
 
 int main(void)
