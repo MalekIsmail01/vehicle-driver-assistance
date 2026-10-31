@@ -13,11 +13,6 @@ board-specific drivers, AUTOSAR RTE bindings, or CAN configuration. Adapt the
 input/output structures in `include/vehicle_assist.h` to connect the logic to
 your ECU, sensors, switches, actuators, and CAN messages.
 
-> **Safety:** This is an educational prototype, not production automotive
-> software. Its simplified stopping-distance calculation does not account for
-> road friction, grade, actuator delays, sensor uncertainty, or functional
-> safety requirements. Do not use it to control a real vehicle.
-
 ## Build and test
 
 With CMake:
