@@ -16,7 +16,7 @@ your ECU, sensors, switches, actuators, and CAN messages.
 
 ## Simulation integration and testing
 
-The user reports testing this project with VECU.ui. This records the reported
+Testing this project with VECU.ui. This records the reported
 tool choice only; it does not imply a project-specific VECU.ui integration,
 capability, or test result.
 
