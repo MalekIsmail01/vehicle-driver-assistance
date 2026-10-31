@@ -13,23 +13,6 @@ board-specific drivers, AUTOSAR RTE bindings, or CAN configuration. Adapt the
 input/output structures in `include/vehicle_assist.h` to connect the logic to
 your ECU, sensors, switches, actuators, and CAN messages.
 
-## Build and test
-
-With CMake:
-
-```sh
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
-```
-
-Or compile the host-side tests directly with a C99 compiler:
-
-```sh
-cc -std=c99 -Wall -Wextra -Werror -pedantic -Iinclude \
-  src/vehicle_assist.c tests/test_vehicle_assist.c -o vehicle_assist_tests
-./vehicle_assist_tests
-```
 
 ## Simulation integration and testing
 
